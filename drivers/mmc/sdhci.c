@@ -215,7 +215,7 @@ static int sdhci_send_command(struct mmc *mmc, struct mmc_cmd *cmd,
 	u32 mask, flags, mode = 0;
 	unsigned int time = 0;
 	int mmc_dev = mmc_get_blk_desc(mmc)->devnum;
-	ulong start = get_timer(0);
+	ulong start;
 
 	host->start_addr = 0;
 	/* Timeout unit - ms */
@@ -551,7 +551,7 @@ void sdhci_set_uhs_timing(struct sdhci_host *host)
 
 void sdhci_set_voltage(struct sdhci_host *host)
 {
-	if (IS_ENABLED(CONFIG_MMC_IO_VOLTAGE)) {
+	if (CONFIG_IS_ENABLED(MMC_IO_VOLTAGE)) {
 		struct mmc *mmc = (struct mmc *)host->mmc;
 		u32 ctrl;
 
